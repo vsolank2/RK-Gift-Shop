@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Moments Gift Shop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #FFE4E1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #FF69B4;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FF69B4;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #FF69B4;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #FFC0CB 0%, #FF69B4 100%);
+            text-align: center;
+            padding: 120px 0 80px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .banner p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Categories */
+        .categories {
+            padding: 60px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #FF69B4;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .category-icon {
+            font-size: 4rem;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+        }
+
+        /* Products */
+        .products {
+            padding: 60px 0;
+            background: #FFE4E1;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #FF69B4;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .whatsapp-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+        }
+
+        /* Product Detail */
+        .product-detail {
+            padding: 120px 0 60px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .product-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+        }
+
+        .detail-price {
+            font-size: 2rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 120px 0 60px;
+            background: #FFE4E1;
+            text-align: center;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .banner h1 {
+                font-size: 2rem;
+            }
+
+            .product-detail-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .detail-image {
+                height: 300px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Active page */
+        .nav-links a.active {
+            color: #FF69B4;
+            border-bottom: 2px solid #FF69B4;
+        }
+
+        /* Hidden pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">🎁 Special Moments</div>
+            <ul class="nav-links">
+                <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
+                <li><a href="#" data-page="birthday" class="nav-link">Birthday</a></li>
+                <li><a href="#" data-page="anniversary" class="nav-link">Anniversary</a></li>
+                <li><a href="#" data-page="love" class="nav-link">Love</a></li>
+                <li><a href="#" data-page="contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Banner -->
+        <section class="banner">
+            <div class="container">
+                <h1>Make Every Moment Special</h1>
+                <p>Find the perfect gift to celebrate love, joy, and unforgettable memories</p>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="categories">
+            <div class="container">
+                <h2 class="section-title">Shop by Category</h2>
+                <div class="category-grid">
+                    <div class="category-card" data-category="birthday">
+                        <div class="category-icon">
+                            <i class="fas fa-birthday-cake"></i>
+                        </div>
+                        <h3>Birthday</h3>
+                        <p>Make their special day unforgettable</p>
+                    </div>
+                    <div class="category-card" data-category="anniversary">
+                        <div class="category-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Anniversary</h3>
+                        <p>Celebrate your love story</p>
+                    </div>
+                    <div class="category-card" data-category="love">
+                        <div class="category-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Love</h3>
+                        <p>Express your feelings perfectly</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="products">
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="product-grid" id="featured-products">
+                    <!-- Products will be populated by JS -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Listing Pages -->
+    <div id="birthday" class="page">
+        <section class="products">
+            <div class="container">
+                <h2 class="section-title">Birthday Gifts</h2>
+                <div class="product-grid" data-category="birthday">
+                    <!-- Products will be populated by JS -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="anniversary" class="page">
+        <section class="products">
+            <div class="container">
+                <h2 class="section-title">Anniversary Gifts</h2>
+                <div class="product-grid" data-category="anniversary">
+                    <!-- Products will be populated by JS -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="love" class="page">
+        <section class="products">
+            <div class="container">
+                <h2 class="section-title">Love Gifts</h2>
+                <div class="product-grid" data-category="love">
+                    <!-- Products will be populated by JS -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div id="product-detail" class="page product-detail">
+        <div class="container">
+            <div class="product-detail-content">
+                <img id="detail-image" class="detail-image" src="" alt="">
+                <div>
+                    <h1 id="detail-title" class="detail-title"></h1>
+                    <div id="detail-price" class="detail-price"></div>
+                    <div id="detail-description" class="detail-description"></div>
+                    <button id="detail-whatsapp" class="whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i> Order on WhatsApp
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone" style="font-size: 1.5rem; color: #25D366;"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <a href="https://wa.me/15551234567?text=Hi!%20I%20want%20to%20order%20from%20Special%20Moments!" 
+                   class="whatsapp-btn" style="width: 100%; max-width: 300px; margin: 0 auto;">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = {
+            featured: [
+                { id: 1, name: "Rose Bouquet", price: "$49.99", image: "https://images.unsplash.com/photo-1558618047-3c8c76bbb17e?w=400&h=300&fit=crop", category: "love", desc: "Beautiful fresh roses arranged in a stunning bouquet. Perfect for expressing love and affection." },
+                { id: 2, name: "Birthday Cake", price: "$39.99", image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=300&fit=crop", category: "birthday", desc: "Delicious chocolate cake with personalized message. Makes any birthday celebration special." },
+                { id: 3, name: "Anniversary Heart", price: "$59.99", image: "https://images.unsplash.com/photo-1574169208507-84376144848b?w=400&h=300&fit=crop", category: "anniversary", desc: "Elegant heart-shaped gift box with chocolates and flowers for your special anniversary." },
+                { id: 4, name: "Love Bear", price: "$29.99", image: "https://images.unsplash.com/photo-1576050471412-b1e0c55b49e1?w=400&h=300&fit=crop", category: "love", desc: "Adorable teddy bear holding a heart. Perfect gift to show your love." },
+                { id: 5, name: "Birthday Balloons", price: "$24.99", image: "https://images.unsplash.com/photo-1603084368119-5e7f44ed63e4?w=400&h=300&fit=crop", category: "birthday", desc: "Colorful helium balloons bouquet for birthday celebrations." },
+                { id: 6, name: "Couple Mug Set", price: "$34.99", image: "https://images.unsplash.com/photo-1612845266811-47bb7d931b50?w=400&h=300&fit=crop", category: "anniversary", desc: "Matching ceramic mugs for couples. Perfect for morning coffee together." }
+            ],
+            birthday: [
+                { id: 7, name: "Personalized Cake", price: "$45.99", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=300&fit=crop", category: "birthday", desc: "Custom cake with name and age. Delicious and memorable." },
+                { id: 8, name: "Birthday Gift Hamper", price: "$69.99", image: "https://images.unsplash.com/photo-1582359646-ddf86e5e7da9?w=400&h=300&fit=crop", category: "birthday", desc: "Luxury hamper with chocolates, cookies, and wine." }
+            ],
+            anniversary: [
+                { id: 9, name: "Rose Gold Jewelry", price: "$89.99", image: "https://images.unsplash.com/photo-1587563871167-2b5ea0b6dc90?w=400&h=300&fit=crop", category: "anniversary", desc: "Beautiful rose gold necklace for your special someone." },
+                { id: 10, name: "Photo Frame Set", price: "$39.99", image: "https://images.unsplash.com/photo-1581637685570-1c79998634d2?w=400&h=300&fit=crop", category: "anniversary", desc: "Elegant frames to display your precious memories." }
+            ],
+            love: [
+                { id: 11, name: "Heart Chocolates", price: "$19.99", image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400&h=300&fit=crop", category: "love", desc: "Premium heart-shaped chocolates. Sweet way to say I love you." },
+                { id: 12, name: "Love Letter Set", price: "$14.99", image: "https
